@@ -81,4 +81,19 @@ describe("Porte", () => {
     expect(room.items).toStrictEqual([]);
   });
 
+  it("Un objet déjà ramassé ne peut pas être ramassé une seconde fois", () => {
+
+    const joueur = new Joueur();
+    const epee1 = new Item("super épée", "dorée")
+    const epee2 = new Item("épée", "argentée")
+
+    const room = new Room([epee1, epee2]);
+
+    room.pickUpItem(epee1, joueur);
+    room.pickUpItem(epee1, joueur);
+
+
+    expect(joueur.inventory).toStrictEqual([epee1]);
+    expect(room.items).toStrictEqual([epee2]);
+  });
 });

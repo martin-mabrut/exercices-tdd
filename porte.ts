@@ -58,10 +58,10 @@ export class Room {
         this.items = items;
     }
 
-    pickUpItem(itemToPick: Item, joueur: Joueur) {
-        if(this.items.length > -1) {
+    pickUpItem(itemToPick: Item, joueur: Joueur): void {
+        
             this.items.some((item) => {
-                
+
             if(item.name === itemToPick.name) {
                 const index = this.items.indexOf(item);
                 this.items.splice(index, 1);
@@ -69,6 +69,6 @@ export class Room {
                 joueur.inventoryAddItem(item);
             }
         })
-        }
+        
     }
 }
