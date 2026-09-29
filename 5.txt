@@ -1,0 +1,18 @@
+Ajoutez la possibilité pour un joueur de ramasser un objet présent dans une salle.
+
+La règle métier est :
+
+Lorsqu'un joueur ramasse un objet, celui-ci est ajouté à son inventaire et retiré de la salle.
+
+Exemple :
+
+Avant :
+
+room.items = ["torch"]
+player.inventory = []
+
+Après :
+
+room.items = []
+player.inventory = ["torch"]
+

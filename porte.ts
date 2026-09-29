@@ -50,3 +50,25 @@ export class Joueur {
        // this.inventory.find((i) => i.name === item.name)
     }
 }
+
+export class Room {
+    items: Item[];
+
+    constructor(items: Item[]) {
+        this.items = items;
+    }
+
+    pickUpItem(itemToPick: Item, joueur: Joueur) {
+        if(this.items.length > -1) {
+            this.items.some((item) => {
+                
+            if(item.name === itemToPick.name) {
+                const index = this.items.indexOf(item);
+                this.items.splice(index, 1);
+
+                joueur.inventoryAddItem(item);
+            }
+        })
+        }
+    }
+}
