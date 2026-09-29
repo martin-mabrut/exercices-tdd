@@ -1,0 +1,10 @@
+Faites évoluer le comportement du ramassage.
+
+La règle métier est :
+
+Un objet déjà ramassé ne peut pas être ramassé une seconde fois.
+
+Testez notamment le cas où le joueur tente de ramasser un objet qui ne se trouve plus dans la salle.
+
+Avant de coder, déterminez ce que doit faire le moteur dans cette situation.
+
