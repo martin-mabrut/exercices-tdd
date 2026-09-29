@@ -1,0 +1,22 @@
+Faites évoluer le comportement d'ouverture d'une porte.
+
+Nouvelle règle métier :
+
+Lorsqu'une clé est utilisée pour ouvrir une porte, elle est retirée de l'inventaire du joueur.
+
+Exemple :
+
+Avant :
+inventory = ["red-key", "torch"]
+
+Ouverture de la porte avec red-key
+
+Après :
+inventory = ["torch"]
+
+Vérifiez avec vos tests que :
+
+la porte est ouverte ;
+la clé utilisée est retirée de l'inventaire ;
+les autres objets sont conservés.
+

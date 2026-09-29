@@ -8,10 +8,12 @@ export class Porte {
     }
 
     openTheDoor(joueur: Joueur): void {
-        const clef = joueur.clef;
-        if(clef.color === this.color){
-            this.open = true;
-        }
+        joueur.inventory.some((item) => {
+            if(item.name === "clef" && item.color === this.color) {
+                this.open = true;
+                joueur.inventoryRemove(item);
+            }
+        })
     }
 
     franchir(): boolean {
@@ -22,18 +24,29 @@ export class Porte {
     }
 }
 
-export class Clef {
+export class Item {
+    name: string;
     color: string; 
 
-    constructor(color: string) {
+    constructor(name: string, color: string) {
+        this.name = name;
         this.color = color;
     }
 }
 
 export class Joueur {
-    clef: Clef;
+    inventory: Item[] = [];
 
-    constructor(clef: Clef) {
-        this.clef = clef;
+    constructor() {
+    }
+
+    inventoryAddItem(item: Item){
+        this.inventory.push(item);
+    }
+
+    inventoryRemove(item: Item): void{
+        const index = this.inventory.indexOf(item);
+        this.inventory.splice(index, 1);
+       // this.inventory.find((i) => i.name === item.name)
     }
 }
