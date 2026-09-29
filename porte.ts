@@ -7,8 +7,11 @@ export class Porte {
         this.color = color;
     }
 
-    openTheDoor(): void {
-        this.open = true;
+    openTheDoor(joueur: Joueur): void {
+        const clef = joueur.clef;
+        if(clef.color === this.color){
+            this.open = true;
+        }
     }
 
     franchir(): boolean {
@@ -24,5 +27,13 @@ export class Clef {
 
     constructor(color: string) {
         this.color = color;
+    }
+}
+
+export class Joueur {
+    clef: Clef;
+
+    constructor(clef: Clef) {
+        this.clef = clef;
     }
 }
