@@ -1,0 +1,7 @@
+Ajoutez le comportement permettant de franchir une porte ouverte.
+
+La règle métier est :
+
+Une porte ouverte peut être franchie.
+
+
