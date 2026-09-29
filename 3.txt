@@ -1,0 +1,13 @@
+Ajoutez la possibilité d'ouvrir une porte nécessitant une clé.
+
+Les règles métier sont :
+
+chaque porte peut nécessiter une clé particulière ;
+le joueur peut ouvrir la porte s'il possède la clé correspondante ;
+le joueur ne peut pas ouvrir la porte s'il ne possède pas la clé correspondante.
+
+Exemple :
+
+Porte rouge → red-key
+Porte bleue → blue-key
+
