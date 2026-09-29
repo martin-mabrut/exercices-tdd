@@ -1,0 +1,13 @@
+Développez le comportement permettant de déterminer si une porte peut être franchie.
+
+La règle métier est :
+
+Une porte fermée ne peut pas être franchie.
+
+Utilisez la méthodologie TDD :
+
+Écrivez le test correspondant à cette règle.
+Vérifiez que le test échoue.
+Écrivez le code nécessaire pour faire passer le test.
+Vérifiez que le test passe.
+Refactorisez votre code si nécessaire.
