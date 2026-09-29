@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { Porte } from "./porte";
 import { Item } from "./porte.ts"
 import { Joueur } from "./porte.ts";
+import { Room } from "./porte.ts";
 
 describe("Porte", () => {
   it("Une porte fermée ne peut être franchie", () => {
@@ -44,7 +45,7 @@ describe("Porte", () => {
 
     const joueur = new Joueur();
     joueur.inventoryAddItem(clef);
-    
+
     porte.openTheDoor(joueur);
 
     expect(porte.open).toBe(false);
@@ -66,4 +67,18 @@ describe("Porte", () => {
 
     expect(joueur.inventory).toStrictEqual([clef1]);
   });
+
+  it("Lorsqu'un joueur ramasse un objet, celui-ci est ajouté à son inventaire et retiré de la salle", () => {
+
+    const joueur = new Joueur();
+    const epee = new Item("épée", "dorée")
+    const room = new Room([epee]);
+
+    room.pickUpItem(epee, joueur);
+
+
+    expect(joueur.inventory).toStrictEqual([epee]);
+    expect(room.items).toStrictEqual([]);
+  });
+
 });
