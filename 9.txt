@@ -1,0 +1,12 @@
+Faites évoluer le fonctionnement des énigmes.
+
+Chaque mauvaise réponse augmente le nombre de tentatives échouées.
+Après 3 mauvaises réponses, une conséquence doit être déclenchée.
+Une bonne réponse permet toujours de résoudre l’énigme.
+Une énigme déjà résolue ne peut pas être résolue une seconde fois.
+
+À faire :
+
+Déterminez les cas à tester.
+Écrivez les tests avant de modifier le code.
+Vérifiez notamment les comportements à 2 puis 3 mauvaises réponses.

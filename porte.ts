@@ -4,6 +4,7 @@ export class Porte {
     enigm: string = "Qu'est-ce qui est jaune et qui attend ?";
     enigmResponse: string = "jonhatan";
     enigmResolved: boolean = false;
+    tentatives: number = 0
 
     constructor(open: boolean, color: string) {
         this.open = open;
@@ -24,8 +25,13 @@ export class Porte {
             this.enigmResolved = true;
             return;
         } 
-
+        
+        this.tentatives += 1;
         this.enigmResolved = false;
+
+        if(this.tentatives === 3) {
+            joueur.degat += 1;
+        }
     }
 
     franchir(): boolean {
@@ -49,6 +55,7 @@ export class Item {
 export class Joueur {
     inventory: Item[] = [];
     response: string = "";
+    degat: number = 0;
 
     constructor() {
     }

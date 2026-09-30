@@ -145,4 +145,34 @@ describe("Porte", () => {
 
   })
 
+  it("Une porte dont l'enigme n'est pas résolue ne peut être franchie", () => {
+
+    const porte = new Porte(true, "rouge");
+
+    expect(porte.franchir()).toBe(false);
+
+  })
+
+  it("Après 3 tentative de résolution, le joueur prend un dégat", () => {
+
+    const joueur = new Joueur();
+    
+
+    expect(joueur.degat).toBe(0);
+
+    const porte = new Porte(true, "rouge");
+
+    joueur.setResponse("jonhat");
+    porte.ask(joueur);
+    joueur.setResponse("jonh");
+    porte.ask(joueur);
+    joueur.setResponse("jo");
+    porte.ask(joueur);
+
+    expect(porte.franchir()).toBe(false);
+    expect(joueur.degat).toBe(1);
+  })
+
+
+
 });
