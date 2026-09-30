@@ -5,10 +5,12 @@ export class Porte {
     enigmResponse: string = "jonhatan";
     enigmResolved: boolean = false;
     tentatives: number = 0
+    checkAlarme: boolean;
 
-    constructor(open: boolean, color: string) {
+    constructor(open: boolean, color: string, checkAlarme: boolean) {
         this.open = open;
         this.color = color;
+        this.checkAlarme = checkAlarme;
     }
 
     openTheDoor(joueur: Joueur): void {
@@ -34,11 +36,18 @@ export class Porte {
         }
     }
 
-    franchir(): boolean {
+    franchir(alarme: Alarme): boolean {
+        if(this.checkAlarme) {
+            if(alarme.active) {
+                return false;
+            }
+        }
+        
         if (this.open === true && this.enigmResolved === true) {
             return true;
         }
         return false;
+
     }
 }
 
@@ -104,5 +113,18 @@ export class Room {
             }
         })
         
+    }
+}
+
+export class Alarme {
+
+    active: Boolean = false;
+
+    activate(): void {
+        this.active = true;
+    }
+
+    desactivate(): void {
+        this.active = false;
     }
 }

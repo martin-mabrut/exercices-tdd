@@ -1,0 +1,13 @@
+Ajoutez une alarme au jeu.
+
+L’alarme peut être inactive ou active.
+Une action permet d’activer l’alarme.
+Une fois activée, l’alarme reste active jusqu’à sa désactivation.
+Certaines portes ne peuvent pas être franchies lorsque l’alarme est active.
+Une porte qui n’est pas concernée par l’alarme reste franchissable.
+
+À faire :
+
+Identifiez les différents comportements à tester.
+Écrivez les tests avant le code.
+Vérifiez que les règles précédentes continuent de fonctionner.
