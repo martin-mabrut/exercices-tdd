@@ -53,11 +53,11 @@ export class Porte {
 
 export class Item {
     name: string;
-    color: string; 
+    color?: string; 
 
-    constructor(name: string, color: string) {
+    constructor(name: string, color?: string) {
         this.name = name;
-        this.color = color;
+        color && (this.color = color);
     }
 }
 
@@ -92,6 +92,20 @@ export class Joueur {
     setResponse(response: string) {
         this.response = response;
     }
+
+    getAlarmeCode(): AlarmeCode | null {
+        const codeFound = this.inventory.find((i) => {
+            if (i instanceof AlarmeCode) {
+                return i;
+            }
+        })
+
+        if(codeFound) {
+            return codeFound; 
+        }
+        
+        return null;
+    }
 }
 
 export class Room {
@@ -117,14 +131,27 @@ export class Room {
 }
 
 export class Alarme {
-
+    code: string = "boncode";
     active: Boolean = false;
 
     activate(): void {
         this.active = true;
     }
 
-    desactivate(): void {
-        this.active = false;
+    desactivate(joueur: Joueur): void {
+        const code = joueur.getAlarmeCode();
+        if(code) {
+            if(this.code === code.name) {
+                this.active = false;
+                joueur.inventoryRemove(code);
+            }
+        }
+    }
+}
+
+export class AlarmeCode extends Item {
+
+    constructor(name: string) {
+        super(name);
     }
 }

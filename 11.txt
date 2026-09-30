@@ -1,0 +1,13 @@
+Faites évoluer la désactivation de l’alarme.
+
+L’alarme peut être désactivée uniquement avec le bon code.
+Un mauvais code ne désactive pas l’alarme.
+Une fois l’alarme désactivée, les portes bloquées par l’alarme peuvent à nouveau être franchies.
+Le code permettant de désactiver l’alarme est un objet alarm-code.
+L’utilisation de cet objet le consomme.
+
+À faire :
+
+Écrivez les tests avant le code.
+Testez les cas de réussite et d’échec.
+Vérifiez que alarm-code disparaît de l’inventaire après utilisation.

@@ -4,6 +4,7 @@ import { Item } from "./porte.ts"
 import { Joueur } from "./porte.ts";
 import { Room } from "./porte.ts";
 import { Alarme } from "./porte.ts";
+import { AlarmeCode } from "./porte";
 
 describe("Porte", () => {
   it("Une porte fermée ne peut être franchie", () => {
@@ -203,7 +204,6 @@ describe("Porte", () => {
   it("Une porte concernée par l'alarme peut être franchie lorsque l'alarme est inactive", () => {
 
     const alarme = new Alarme();
-    alarme.desactivate();
 
     const porte = new Porte(true, "rouge", true);
     porte.enigmResolved = true;
@@ -222,6 +222,79 @@ describe("Porte", () => {
     porte.enigmResolved = true;
 
     expect(porte.franchir(alarme)).toBe(true);
+
+  })
+
+  it("Un objet AlarmeCode qui contient le bon code permet de désactiver l'alarme", () => {
+
+    const alarmeCode = new AlarmeCode("boncode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+
+    if(joueur.getAlarmeCode()) {
+      alarme.desactivate(joueur);
+    }
+
+    
+
+    expect(alarme.active).toBe(false);
+  })
+
+  it("Un objet AlarmeCode qui contient un mauvais code ne désactive pas l'alarme", () => {
+
+    const alarmeCode = new AlarmeCode("mauvaiscode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+
+    if(joueur.getAlarmeCode()) {
+      alarme.desactivate(joueur);
+    }
+
+    
+
+    expect(alarme.active).toBe(true);
+
+  })
+
+  it("Une alarme ne peut être désactiver sans objet AlarmeCode", () => {
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+
+    alarme.desactivate(joueur);
+
+    expect(alarme.active).toBe(true);
+
+  })
+
+  it("Un objet AlarmeCode disparait de l'inventaire après utilisation", () => {
+
+    const alarmeCode = new AlarmeCode("boncode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+
+    expect(joueur.inventory).toStrictEqual([alarmeCode]);
+
+    if(joueur.getAlarmeCode()) {
+      alarme.desactivate(joueur);
+    }
+
+    expect(alarme.active).toBe(false);
+    expect(joueur.inventory).toStrictEqual([]);
 
   })
 
