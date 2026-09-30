@@ -96,4 +96,17 @@ describe("Porte", () => {
     expect(joueur.inventory).toStrictEqual([epee1]);
     expect(room.items).toStrictEqual([epee2]);
   });
+
+  it("Un joueur ne peut utiliser qu'un objet qu'il possède dans son inventaire", () => {
+
+    const joueur = new Joueur();
+    
+    const item = new Item("epee", "vert");
+    const item2 = new Item("couteau", "rose");
+
+    joueur.inventoryAddItem(item);
+
+    expect(joueur.useItem(item)).toBe(true);
+    expect(joueur.useItem(item2)).toBe(false);
+  });
 });
