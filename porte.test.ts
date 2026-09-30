@@ -3,18 +3,23 @@ import { Porte } from "./porte";
 import { Item } from "./porte.ts"
 import { Joueur } from "./porte.ts";
 import { Room } from "./porte.ts";
+import { Alarme } from "./porte.ts";
 
 describe("Porte", () => {
   it("Une porte fermée ne peut être franchie", () => {
 
-    const porte = new Porte(false, "rouge");
+    const alarme = new Alarme;
 
-    expect(porte.franchir()).toBe(false);
+    const porte = new Porte(false, "rouge", false);
+
+    expect(porte.franchir(alarme)).toBe(false);
   });
 
   it("Une porte ouverte peut être franchie", () => {
 
-    const porte = new Porte(true, "bleu");
+    const alarme = new Alarme;
+
+    const porte = new Porte(true, "bleu", false);
     porte.enigmResolved = true;
     const clef = new Item("clef", "bleu");
     const joueur = new Joueur();
@@ -22,12 +27,12 @@ describe("Porte", () => {
 
     porte.openTheDoor(joueur);
 
-    expect(porte.franchir()).toBe(true);
+    expect(porte.franchir(alarme)).toBe(true);
   });
 
   it("le joueur peut ouvrir la porte s'il possède la clé correspondante", () => {
 
-    const porte = new Porte(false, "rouge");
+    const porte = new Porte(false, "rouge", false);
 
     const clef = new Item("clef", "rouge");
 
@@ -41,7 +46,7 @@ describe("Porte", () => {
 
   it("le joueur ne peut pas ouvrir la porte s'il ne possède pas la clé correspondante", () => {
 
-    const porte = new Porte(false, "bleu");
+    const porte = new Porte(false, "bleu", false);
     const clef = new Item("clef", "rouge");
 
     const joueur = new Joueur();
@@ -54,7 +59,7 @@ describe("Porte", () => {
 
   it("Lorsqu'une clé est utilisée pour ouvrir une porte, elle est retirée de l'inventaire du joueur", () => {
 
-    const porte = new Porte(false, "bleu");
+    const porte = new Porte(false, "bleu", false);
 
     const clef1 = new Item("clef", "vert");
     const clef2 = new Item("clef", "bleu");
@@ -113,35 +118,110 @@ describe("Porte", () => {
 
   it("Pour franchir la porte, l’énigme doit avoir été résolue", () => {
 
+    const alarme = new Alarme;
+
     const joueur = new Joueur();
     joueur.setResponse("jonhatan");
 
-    const porte = new Porte(true, "rouge");
+    const porte = new Porte(true, "rouge", false);
     porte.ask(joueur);
 
     expect(porte.enigmResolved).toBe(true);
     expect(porte.open).toBe(true);
-    expect(porte.franchir()).toBe(true);
+    expect(porte.franchir(alarme)).toBe(true);
 
   })
 
   it("Enigme : le joueur donne une mauvaise réponse", () => {
 
+    const alarme = new Alarme;
+
     const joueur = new Joueur();
     joueur.setResponse("jonhat");
 
-    const porte = new Porte(true, "rouge");
+    const porte = new Porte(true, "rouge", false);
     porte.ask(joueur);
 
-    expect(porte.franchir()).toBe(false);
+    expect(porte.franchir(alarme)).toBe(false);
 
   })
 
   it("Une porte dont l'enigme n'est pas résolue ne peut être franchie", () => {
 
-    const porte = new Porte(true, "rouge");
+    const alarme = new Alarme;
 
-    expect(porte.franchir()).toBe(false);
+    const porte = new Porte(true, "rouge", false);
+
+    expect(porte.franchir(alarme)).toBe(false);
+
+  })
+
+  it("Une porte dont l'enigme n'est pas résolue ne peut être franchie", () => {
+
+    const alarme = new Alarme;
+
+    const porte = new Porte(true, "rouge", false);
+
+    expect(porte.franchir(alarme)).toBe(false);
+
+  })
+
+  it("Après 3 tentative de résolution, le joueur prend un dégat", () => {
+
+    const alarme = new Alarme;
+
+    const joueur = new Joueur();
+    
+
+    expect(joueur.degat).toBe(0);
+
+    const porte = new Porte(true, "rouge", false);
+
+    joueur.setResponse("jonhat");
+    porte.ask(joueur);
+    joueur.setResponse("jonh");
+    porte.ask(joueur);
+    joueur.setResponse("jo");
+    porte.ask(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+    expect(joueur.degat).toBe(1);
+  })
+
+  it("Une porte concernée par l'alarme ne peut être franchie lorsque l'alarme est active", () => {
+
+    const alarme = new Alarme();
+    alarme.activate();
+
+    const porte = new Porte(true, "rouge", true);
+
+    expect(porte.franchir(alarme)).toBe(false);
+
+  })
+
+
+  it("Une porte concernée par l'alarme peut être franchie lorsque l'alarme est inactive", () => {
+
+    const alarme = new Alarme();
+    alarme.desactivate();
+
+    const porte = new Porte(true, "rouge", true);
+    porte.enigmResolved = true;
+
+    expect(porte.franchir(alarme)).toBe(true);
+
+  })
+
+
+  it("Une porte non concernée par l'alarme peut être franchie lorsque l'alarme est active", () => {
+
+    const alarme = new Alarme();
+    alarme.activate();
+
+    const porte = new Porte(true, "rouge", false);
+    porte.enigmResolved = true;
+
+    expect(porte.franchir(alarme)).toBe(true);
 
   })
 
