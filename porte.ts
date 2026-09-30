@@ -49,6 +49,16 @@ export class Joueur {
         this.inventory.splice(index, 1);
        // this.inventory.find((i) => i.name === item.name)
     }
+
+    useItem(item: Item): boolean {
+
+        const itemFound = this.inventory.find((i) => i === item);
+
+        if(itemFound) {
+            return true;
+        } 
+        return false;
+    }
 }
 
 export class Room {
