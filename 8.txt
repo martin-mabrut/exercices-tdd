@@ -1,0 +1,18 @@
+Ajoutez la possibilité de protéger une porte avec une énigme.
+
+Une porte peut être associée à une énigme.
+Pour franchir la porte, l’énigme doit avoir été résolue.
+Le joueur doit fournir la bonne réponse pour résoudre l’énigme.
+Une mauvaise réponse ne permet pas de résoudre l’énigme.
+Une fois résolue, l’énigme reste résolue.
+
+À faire :
+
+Écrivez les tests avant le code.
+Testez au minimum :
+    la bonne réponse
+    une mauvaise réponse
+    le franchissement d’une porte dont l’énigme n’est pas résolue
+    le franchissement d’une porte dont l’énigme est résolue
+
+Faites passer les tests puis refactorez si nécessaire.

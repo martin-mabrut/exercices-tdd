@@ -15,6 +15,7 @@ describe("Porte", () => {
   it("Une porte ouverte peut être franchie", () => {
 
     const porte = new Porte(true, "bleu");
+    porte.enigmResolved = true;
     const clef = new Item("clef", "bleu");
     const joueur = new Joueur();
     joueur.inventoryAddItem(clef);
@@ -109,4 +110,39 @@ describe("Porte", () => {
     expect(joueur.useItem(item)).toBe(true);
     expect(joueur.useItem(item2)).toBe(false);
   });
+
+  it("Pour franchir la porte, l’énigme doit avoir été résolue", () => {
+
+    const joueur = new Joueur();
+    joueur.setResponse("jonhatan");
+
+    const porte = new Porte(true, "rouge");
+    porte.ask(joueur);
+
+    expect(porte.enigmResolved).toBe(true);
+    expect(porte.open).toBe(true);
+    expect(porte.franchir()).toBe(true);
+
+  })
+
+  it("Enigme : le joueur donne une mauvaise réponse", () => {
+
+    const joueur = new Joueur();
+    joueur.setResponse("jonhat");
+
+    const porte = new Porte(true, "rouge");
+    porte.ask(joueur);
+
+    expect(porte.franchir()).toBe(false);
+
+  })
+
+  it("Une porte dont l'enigme n'est pas résolue ne peut être franchie", () => {
+
+    const porte = new Porte(true, "rouge");
+
+    expect(porte.franchir()).toBe(false);
+
+  })
+
 });
