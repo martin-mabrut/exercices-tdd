@@ -1,6 +1,9 @@
 export class Porte {
     open: boolean = false;
     color: string;
+    enigm: string = "Qu'est-ce qui est jaune et qui attend ?";
+    enigmResponse: string = "jonhatan";
+    enigmResolved: boolean = false;
 
     constructor(open: boolean, color: string) {
         this.open = open;
@@ -16,11 +19,20 @@ export class Porte {
         })
     }
 
+    ask(joueur: Joueur): void {
+        if(joueur.response === this.enigmResponse) {
+            this.enigmResolved = true;
+            return;
+        } 
+
+        this.enigmResolved = false;
+    }
+
     franchir(): boolean {
-        if (!this.open) {
-            return false;
+        if (this.open === true && this.enigmResolved === true) {
+            return true;
         }
-        return true;
+        return false;
     }
 }
 
@@ -36,6 +48,7 @@ export class Item {
 
 export class Joueur {
     inventory: Item[] = [];
+    response: string = "";
 
     constructor() {
     }
@@ -58,6 +71,10 @@ export class Joueur {
             return true;
         } 
         return false;
+    }
+
+    setResponse(response: string) {
+        this.response = response;
     }
 }
 
