@@ -1,0 +1,19 @@
+Certaines portes nécessitent maintenant plusieurs conditions pour être franchies.
+
+La porte du laboratoire nécessite :
+
+la clé du laboratoire ;
+l’alarme désactivée ;
+l’énigme du laboratoire résolue.
+
+À faire :
+
+Testez chaque situation :
+    aucune condition remplie ;
+    uniquement la clé ;
+    uniquement l’énigme ;
+    uniquement l’alarme désactivée ;
+    clé + énigme ;
+    clé + alarme désactivée ;
+    énigme + alarme désactivée ;
+    les trois conditions réunies.

@@ -298,4 +298,204 @@ describe("Porte", () => {
 
   })
 
+    it("Une porte ne peut être franchie si aucune condition n'est réunie", () => {
+
+    const alarmeCode = new AlarmeCode("mauvaisCode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonh");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "bleu", true);
+
+    const clef = new Item("clef", "rouge");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+  })
+
+
+    it("Une porte ne peut être franchie si le joueur ne possède que la bonne clée", () => {
+
+    const alarmeCode = new AlarmeCode("mauvaisCode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonh");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "rouge", true);
+
+    const clef = new Item("clef", "rouge");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+  })
+
+
+    it("Une porte ne peut être franchie si le joueur ne possède que la bonne réponse à l'énigme", () => {
+
+    const alarmeCode = new AlarmeCode("mauvaisCode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonhatan");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "rouge", true);
+
+    const clef = new Item("clef", "bleu");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+  })
+
+
+    it("Une porte ne peut être franchie si seulement l'alarme est désactivée", () => {
+
+    const alarmeCode = new AlarmeCode("boncode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonh");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "bleu", true);
+
+    const clef = new Item("clef", "rouge");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+    })
+
+
+    it("Une porte ne peut pas être franchie si seulement la clé et l'énigme sont bonnes", () => {
+
+    const alarmeCode = new AlarmeCode("mauvaiscode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonhatan");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "rouge", true);
+
+    const clef = new Item("clef", "rouge");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+    })
+
+    it("Une porte ne peut pas être franchie si seulement la clé est bonne et l'alarme désativée", () => {
+
+    const alarmeCode = new AlarmeCode("boncode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonh");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "rouge", true);
+
+    const clef = new Item("clef", "rouge");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+    })
+
+
+    it("Une porte ne peut pas être franchie si seulement l'énigme est bonne et l'alarme désativée", () => {
+
+    const alarmeCode = new AlarmeCode("boncode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonhatan");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "bleu", true);
+
+    const clef = new Item("clef", "rouge");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.franchir(alarme)).toBe(false);
+    })
+
+
+    it("Une porte peut être franchie si l'énigme est bonne, la clée est bonne, et l'alarme désativée", () => {
+
+    const alarmeCode = new AlarmeCode("boncode");
+
+    const alarme = new Alarme()
+    alarme.activate();
+
+    const joueur = new Joueur();
+    joueur.inventoryAddItem(alarmeCode);
+    joueur.setResponse("jonhatan");
+
+    alarme.desactivate(joueur);
+
+    const porte = new Porte(false, "rouge", true);
+
+    const clef = new Item("clef", "rouge");
+    joueur.inventoryAddItem(clef);
+
+    porte.ask(joueur);
+    porte.openTheDoor(joueur);
+
+    expect(porte.open).toBe(true);
+    expect(porte.enigmResolved).toBe(true);
+    expect(porte.franchir(alarme)).toBe(true);
+    })
+
 });
